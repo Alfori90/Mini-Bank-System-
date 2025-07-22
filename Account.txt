@@ -1,0 +1,206 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Account {
+
+    static String userName;
+    static String idNum;
+    static String phoneNum;
+    static String userGender;
+    static String userState;
+    static int accountNum =0;
+//    static int counter = 0 ;
+    static Double totalDeposite =0.0;
+    static Double totalWithdraw =0.0;
+    static Double balance = 1600.00;
+//    static Double amount;
+
+    public static void creatAccounts() {
+        Scanner creatAccounts = new Scanner(System.in);
+        ArrayList<String> account = new ArrayList();
+
+        while (true) {
+            System.out.println("Enter user Name:");
+            userName = creatAccounts.nextLine();
+            if (userName.isEmpty()) {
+                System.out.println("Please write name ");
+            }
+            else {
+                account.add(userName);
+                break;
+            }
+        }
+
+        while (true) {
+            System.out.println("Enter ID Number:");
+            idNum = creatAccounts.nextLine();
+            if (idNum.length() >= 6) {
+                account.add(idNum);
+                break;
+            }
+            else {
+                System.out.println("incorrect ID Number ");
+            }
+        }
+
+
+        while (true) {
+            System.out.print("Enter phone Number: \n +968 ");
+            phoneNum = creatAccounts.nextLine();
+            if (phoneNum.length() == 8) {
+                account.add(phoneNum);
+                break;
+            }
+            else {
+                System.out.println("incorrect phone number");
+            }
+        }
+
+        while (true) {
+            System.out.println("Enter User Gender: male /female");
+            userGender = creatAccounts.nextLine();
+            if (userGender.equals("male") || userGender.equals("female")) {
+                account.add(userGender);
+                break;
+            }
+            else {
+                System.out.println("incorrect user gender");
+            }
+        }
+
+
+        while (true) {
+            System.out.println("Enter User State: Student/Employee/job seeker/Retired/Homemaker:");
+            userState = creatAccounts.nextLine();
+            if (userState.equals("Student") || userState.equals("Employee") || userState.equals("job seeker") || userState.equals("Retired") || userState.equals("Homemaker")) {
+                account.add(userState);
+                break;
+            }
+            else {
+                System.out.println("incorrect User State");
+            }
+        }
+        account.add(String.valueOf(accountNum));
+        accountNum ++;
+        System.out.println(account);
+
+    }
+
+
+    public static void viewBalance() {
+
+        System.out.println("Account Number: " + "  " + accountNum + "\nCurrent Balance: " + balance + " " + "OMR");
+
+    }
+
+
+    public static void deposit(Double amount) {
+
+        if ( amount >= 1) {
+            balance = balance + amount;
+            totalDeposite = totalDeposite +amount;
+            System.out.println(amount + " " + "OMR" + " deposited successfully");
+        }
+        else {
+            System.out.println("deposited Unsuccessfully ,Insufficient amount ");
+        }
+
+
+    }
+
+
+    public static void withdraw(Double amount) {
+
+        if (balance >= 5 && amount <= balance && amount % 5 == 0) {
+            balance = balance - amount;
+            totalWithdraw = totalWithdraw + amount;
+            System.out.println(amount + "OMR withdraw successfully");
+        } else {
+
+            System.out.println("withdraw Unsuccessfully ,check amount or balance ");
+        }
+
+    }
+
+
+    public static void accountDetails() {
+        System.out.println("The user name :" + userName);
+        System.out.println("The phone number :" + phoneNum);
+        System.out.println("The Account Number :" + accountNum);
+
+    }
+
+
+    public static void transectionHistory() {
+
+        System.out.println("--------------------------------");
+        System.out.println("Transection History:");
+        System.out.println("Account Number:" + accountNum);
+        System.out.println("Balance :" + balance + " " + "OMR");
+        System.out.println("Total Deposite :" + totalDeposite + " " + "OMR");
+        System.out.println("Total Withdraw :" + totalWithdraw + " " + "OMR");
+        System.out.println("--------------------------------");
+
+    }
+
+    public static void main(String[] args) {
+
+
+//        int users = 0;
+        Scanner SC = new Scanner(System.in);
+        int Choice = 0;
+        System.out.println("Welcome To Rich Bank");
+        while (Choice < 7) {
+            System.out.println("\n Bank Menu :");
+            System.out.println("1-Create Account");
+            System.out.println("2-View Balance ");
+            System.out.println("3-Deposit");
+            System.out.println("4-Withdraw");
+            System.out.println("5-Account Detail");
+            System.out.println("6-Transection History");
+            System.out.println("7-Exit");
+            System.out.println("choose an option :");
+            Choice = SC.nextInt();
+
+
+            switch (Choice) {
+                case 1:
+                    creatAccounts();
+                    System.out.println("Account Created succeesfully");
+                    System.out.println("Your account no is " + String.valueOf(accountNum-1));
+//                    users++;
+                    break;
+                case 2:
+                    viewBalance();
+                    break;
+                case 3:
+                    System.out.println("Enter deposited amount :");
+                    double depositedAmount  = SC.nextDouble();
+                    deposit(depositedAmount);
+                    break;
+                case 4:
+                    System.out.println("Enter withdraw amount :");
+                    double withdrowAmount = SC.nextDouble();
+                    withdraw(withdrowAmount);
+                    break;
+                case 5:
+                    accountDetails();
+                    break;
+                case 6:
+                    transectionHistory();
+                    break;
+                case 7:
+                    System.out.println("Come Again");
+                    break;
+
+                default:
+                    System.out.println("Invalied choice.");
+                    break;
+
+            }
+
+
+        }
+
+    }
+}
